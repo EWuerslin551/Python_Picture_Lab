@@ -12,7 +12,14 @@ def zero_blue(pixels: np.ndarray) -> np.ndarray:
     result = pixels.copy()
     result[:, :, 2] = 0
     return result
-
+def zero_red(pixels: np.ndarray) -> np.ndarray:
+    result = pixels.copy()
+    result[2, :, :] = 0
+    return result
+def zero_green(pixels: np.ndarray) -> np.ndarray:
+    result = pixels.copy()
+    result[:, 2, :] = 0
+    return result
 
 def mirror_vertical(pixels: np.ndarray) -> np.ndarray:
     """Copy the left half onto its mirror position on the right (matches
