@@ -14,11 +14,11 @@ def zero_blue(pixels: np.ndarray) -> np.ndarray:
     return result
 def zero_red(pixels: np.ndarray) -> np.ndarray:
     result = pixels.copy()
-    result[2, :, :] = 0
+    result[:, :, 0] = 0
     return result
 def zero_green(pixels: np.ndarray) -> np.ndarray:
     result = pixels.copy()
-    result[:, 2, :] = 0
+    result[:, :, 1] = 0
     return result
 
 def mirror_vertical(pixels: np.ndarray) -> np.ndarray:

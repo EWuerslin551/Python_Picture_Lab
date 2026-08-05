@@ -58,10 +58,19 @@ def mirror_vertical(pixels: np.ndarray) -> np.ndarray:
 def mirror_horizontal(pixels: np.ndarray) -> np.ndarray:
     result = pixels.copy()
     height, width, _ = result.shape
-    for row in range(height):
-        for col in range(width // 2):
+    for col in range(width):
+        for row in range(height // 2):
             left = get_pixel(result, row, col)
-            set_pixel(result, row, width - 1 - col, left)
+            set_pixel(result, height - 1 - row, col, left)
+    return result
+def mirror_diagonal(pixels: np.ndarray) -> np.ndarray:
+    result = pixels.copy()
+    height, width, _ = result.shape
+    for col in range(width):
+        for row in range(height):
+            if row/height + row/width > 1:
+                newpixel = getpixel(result, height - row,  width - col)
+                setpixel(result, row, col, newpixel)
     return result
 
 
