@@ -68,9 +68,14 @@ def mirror_diagonal(pixels: np.ndarray) -> np.ndarray:
     height, width, _ = result.shape
     for col in range(width):
         for row in range(height):
-            if row/height + row/width > 1:
-                newpixel = getpixel(result, height - row,  width - col)
-                setpixel(result, row, col, newpixel)
+            if row/height + col/width > 1:
+                newcol =  round(col - ((2*height/width)*((height/width)*col + row - height))/((height/width)**2 + 1))
+                newrow =  round(row - ((2)*((height/width)*col + row - height))/((height/width)**2 + 1))
+                newpixel = get_pixel(result, newrow,  newcol)
+                if newcol < 0 or newrow < 0:
+                    set_pixel(result, row, col, (255, 255, 255))
+                else:
+                    set_pixel(result, row, col, newpixel)
     return result
 
 
@@ -123,4 +128,14 @@ def edge_detection(pixels: np.ndarray, edge_dist: float) -> np.ndarray:
                 set_pixel(result, row, col, (0, 0, 0))
             else:
                 set_pixel(result, row, col, (255, 255, 255))
+    return result
+
+def grey(pixels: np.ndarray):
+    result = pixels.copy()
+    height, width, pixels = result.shape
+    for row in range(height):
+        for col in range(width):
+            r, g, b = get_pixel(result, row, col)
+            n = (r+g+b)/3 
+            set_pixel(result, row, col, (n, n, n))
     return result
